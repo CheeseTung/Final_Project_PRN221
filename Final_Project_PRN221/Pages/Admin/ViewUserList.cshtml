@@ -1,4 +1,30 @@
 ﻿@page
+@using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.ViewUserListModel
 @{
+    var users = ViewData["users"] as List<User>;
 }
+<h2>View user list</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Phòng</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in users)
+        {
+            <tr>
+                <td>@item.Fullname</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.Room.RoomName</td>
+                <td><a href="./ViewUserList?deleteUsername=@item.Username">Xóa</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

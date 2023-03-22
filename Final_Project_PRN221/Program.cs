@@ -1,4 +1,5 @@
 using Final_Project_PRN221.Models;
+using Final_Project_PRN221.ServiceData;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddDbContext<Project_PRN221Context>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
+builder.Services.AddScoped<DataService>();
 
 var app = builder.Build();
 

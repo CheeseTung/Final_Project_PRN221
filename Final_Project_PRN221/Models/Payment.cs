@@ -18,5 +18,6 @@ namespace Final_Project_PRN221.Models
         public bool? IsPaid { get; set; }
 
         public virtual ICollection<PaymentDetail> PaymentDetails { get; set; }
+        public virtual Room Room { get; set; } = null!; //Tự thêm
     }
 }

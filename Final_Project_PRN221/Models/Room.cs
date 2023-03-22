@@ -18,5 +18,6 @@ namespace Final_Project_PRN221.Models
         public virtual ICollection<Electricity> Electricities { get; set; }
         public virtual ICollection<PaymentDetail> PaymentDetails { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; } //Tự thêm
     }
 }
