@@ -16,6 +16,30 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\FULearning\Spring2023\PRN221\Project\Finale_PRN221\Final_Project_PRN221\Final_Project_PRN221
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/HomePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSG9tZVBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGF5bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/PaymentDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGF5bWVudERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/SetNotification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cU2V0Tm90aWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/SignOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cU2lnbk91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Admin/ViewUserList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cVmlld1VzZXJMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -24,12 +48,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Support.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Users/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Users/GetNotification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcR2V0Tm90aWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Users/HomePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcSG9tZVBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/Users/ViewPayment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVmlld1BheW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/FULearning/Spring2023/PRN221/Project/Finale_PRN221/Final_Project_PRN221/Final_Project_PRN221/Pages/_ViewImports.cshtml]

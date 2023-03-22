@@ -1,7 +1,14 @@
+using Final_Project_PRN221.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<Project_PRN221Context>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
+});
 
 var app = builder.Build();
 

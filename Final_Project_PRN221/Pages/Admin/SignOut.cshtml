@@ -1,0 +1,51 @@
+﻿@page
+@model Final_Project_PRN221.Pages.Admin.SignOutModel
+@{
+}
+<h2>Đăng ký tài khoản người dùng</h2>
+@if (!string.IsNullOrWhiteSpace(@Model.Mess))
+{
+    <div class="text-danger">
+        @Model.Mess
+    </div>
+}
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <div>
+            <label>Tên người dùng</label>
+            <input asp-for="user.Fullname" type="text" />
+            <span asp-validation-for="user.Fullname"></span>
+        </div>
+        <div>
+            <label>Tên tài khoản</label>
+            <input asp-for="user.Username" type="text" />
+            <span asp-validation-for="user.Username"></span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <label>Gmail người dùng</label>
+            <input asp-for="user.Email" type="text" />
+            <span asp-validation-for="user.Email"></span>
+        </div>
+        <div>
+            <label>Mật khẩu</label>
+            <input asp-for="user.Password" type="text" />
+            <span asp-validation-for="user.Password"></span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <label>Số điện thoại</label>
+            <input asp-for="user.Phone" type="text" />
+            <span asp-validation-for="user.Phone"></span>
+        </div>
+        <div>
+        <label>ID phòng</label>
+        <input asp-for="user.RoomId" type="text" />
+        <span asp-validation-for="user.RoomId"></span>
+        </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Đăng ký">
+</form>
