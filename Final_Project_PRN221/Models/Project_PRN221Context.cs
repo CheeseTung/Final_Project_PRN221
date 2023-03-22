@@ -17,6 +17,7 @@ namespace Final_Project_PRN221.Models
         }
 
         public virtual DbSet<Electricity> Electricities { get; set; } = null!;
+        public virtual DbSet<Notification> Notifications { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<PaymentDetail> PaymentDetails { get; set; } = null!;
         public virtual DbSet<Room> Rooms { get; set; } = null!;
@@ -39,15 +40,31 @@ namespace Final_Project_PRN221.Models
 
                 entity.Property(e => e.ElectricityId).HasColumnName("ElectricityID");
 
-                entity.Property(e => e.Month).HasColumnType("date");
+                entity.Property(e => e.FromDate).HasColumnType("date");
+
+                entity.Property(e => e.PricePerNumber).HasColumnType("money");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
+
+                entity.Property(e => e.ToDate).HasColumnType("date");
+
+                entity.Property(e => e.Total)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Electricities)
                     .HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Electricity_Rooms");
+            });
+
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.ToTable("Notification");
+
+                entity.Property(e => e.NotificationId).HasColumnName("NotificationID");
+
+                entity.Property(e => e.Content).HasMaxLength(500);
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -56,15 +73,18 @@ namespace Final_Project_PRN221.Models
 
                 entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
 
-                entity.Property(e => e.Amount).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.Amount).HasColumnType("money");
 
-                entity.Property(e => e.IsPaid).HasColumnName("isPaid");
-
-                entity.Property(e => e.PaymentDate).HasColumnType("datetime");
+                entity.Property(e => e.FromDate).HasColumnType("date");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.ToDate).HasColumnType("date");
+
+                entity.HasOne(d => d.Room)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.RoomId)
+                    .HasConstraintName("FK_Payment_Rooms");
             });
 
             modelBuilder.Entity<PaymentDetail>(entity =>
@@ -97,8 +117,6 @@ namespace Final_Project_PRN221.Models
                     .HasColumnType("money")
                     .HasColumnName("room_charge");
 
-                entity.Property(e => e.RoomId).HasColumnName("roomId");
-
                 entity.Property(e => e.WaterMoney)
                     .HasColumnType("money")
                     .HasColumnName("waterMoney");
@@ -114,12 +132,6 @@ namespace Final_Project_PRN221.Models
                     .HasForeignKey(d => d.PaymentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_Details_Payment");
-
-                entity.HasOne(d => d.Room)
-                    .WithMany(p => p.PaymentDetails)
-                    .HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_Details_Rooms");
             });
 
             modelBuilder.Entity<Room>(entity =>

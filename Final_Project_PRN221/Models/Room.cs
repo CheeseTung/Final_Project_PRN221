@@ -8,7 +8,7 @@ namespace Final_Project_PRN221.Models
         public Room()
         {
             Electricities = new HashSet<Electricity>();
-            PaymentDetails = new HashSet<PaymentDetail>();
+            Payments = new HashSet<Payment>();
             Users = new HashSet<User>();
         }
 
@@ -16,8 +16,7 @@ namespace Final_Project_PRN221.Models
         public string RoomName { get; set; } = null!;
 
         public virtual ICollection<Electricity> Electricities { get; set; }
-        public virtual ICollection<PaymentDetail> PaymentDetails { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; } //Tự thêm
     }
 }

@@ -12,7 +12,8 @@ namespace Final_Project_PRN221.Models
         public string Email { get; set; } = null!;
         public int Phone { get; set; }
         public int Role { get; set; }
-        [Range(0, 2,ErrorMessage = "Bạn phải nhập ID từ 0 đến 2")]
+        [Required]
+        [Range(1,2,ErrorMessage = "Bạn chỉ có thể nhập RoomID từ 1 đến 2")]
         public int RoomId { get; set; }
 
         public virtual Room Room { get; set; } = null!;

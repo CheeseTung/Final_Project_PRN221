@@ -31,7 +31,7 @@ namespace Final_Project_PRN221.Pages.Admin
                 _context.SaveChanges();
                 users.Remove(userDelete);
             }
-                        
+
             ViewData["users"] = users;
         }
     }
