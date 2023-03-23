@@ -1,7 +1,49 @@
 ﻿@page
+@using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.PaymentModel
 @{
+    Layout = null;
+    var Payments = ViewData["payments"] as List<Payment>;
 }
 
 <h2>Hóa đơn tiền phòng</h2>
-<p></p>
+
+<p>Từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</p>
+<table class="table" style="border: 1px solid">
+    <thead>
+        <tr>
+            <th>Phòng</th>
+            <th>Tổng tiền phải đóng</th>
+            <th>Đã đóng</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Payments)
+        {
+            <tr>
+                <td>@p.Room.RoomName</td>
+                @if(p.Amount == null)
+                {
+                    <td>Tổng số tiền phải xác nhận</td>
+                }
+                else
+                {
+                    <td>@p.Amount</td>
+                }
+                
+                @if (p.IsPaid == true)
+                {
+                    <td>Đã đóng</td>
+                }
+                else
+                {
+                    <td>Chưa đóng</td>
+                }
+                <td><a href="./PaymentDetail?paymentID=@p.PaymentId">Xem chi tiết hóa đơn</a></td> @*Nếu đã check thì sẽ disable thẻ a này*@
+                <td></td> @*Check đã confirm thông tin chưa, xử lý bên payment detail*@
+            </tr>
+        }
+    </tbody>
+</table>

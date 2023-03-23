@@ -1,10 +1,11 @@
 ﻿@page
 @model Final_Project_PRN221.Pages.LoginModel
 @{
-    <h1>Đăng nhập</h1>
-    <form method="post">
-    User name <input asp-for="@Model.Username" /><br />
-    Password <input asp-for="@Model.Password" type="password"/><br/>
-    <input class="btn btn-primary" type="submit" value="Đăng nhập">
-    </form>
+    Layout = null;
 }
+<h1>Đăng nhập</h1>
+<form method="post">
+    User name <input asp-for="@Model.Username" /><br />
+    Password <input asp-for="@Model.Password" type="password" /><br />
+    <input class="btn btn-primary" type="submit" value="Đăng nhập">
+</form>

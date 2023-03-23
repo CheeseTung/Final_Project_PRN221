@@ -18,8 +18,14 @@ namespace Final_Project_PRN221.Pages.Admin
         public DateTime toDate = new DateTime();
         public void OnGet()
         {
-            var query = _context.Rooms.Include(r => r.Payments);
-
+            var query = _context.Payments.Include(p => p.Room);
+            var payments = (from p in query
+                            where p.IsPaid == false
+                            orderby p.Room.RoomName
+                            select p).ToList();
+            fromDate = (DateTime)payments[0].FromDate;
+            toDate = (DateTime)payments[0].ToDate;
+            ViewData["payments"] = payments;
         }
     }
 }
