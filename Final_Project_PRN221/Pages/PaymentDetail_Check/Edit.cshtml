@@ -1,0 +1,65 @@
+﻿@page
+@model Final_Project_PRN221.Pages.PaymentDetail_Check.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PaymentDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PaymentDetail.PaymentDetailId" />
+            <div class="form-group">
+                <label asp-for="PaymentDetail.PaymentId" class="control-label"></label>
+                <select asp-for="PaymentDetail.PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
+                <span asp-validation-for="PaymentDetail.PaymentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.RoomCharge" class="control-label"></label>
+                <input asp-for="PaymentDetail.RoomCharge" class="form-control" />
+                <span asp-validation-for="PaymentDetail.RoomCharge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.WaterMoney" class="control-label"></label>
+                <input asp-for="PaymentDetail.WaterMoney" class="form-control" />
+                <span asp-validation-for="PaymentDetail.WaterMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.NetworkMoney" class="control-label"></label>
+                <input asp-for="PaymentDetail.NetworkMoney" class="form-control" />
+                <span asp-validation-for="PaymentDetail.NetworkMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.CleanMoney" class="control-label"></label>
+                <input asp-for="PaymentDetail.CleanMoney" class="form-control" />
+                <span asp-validation-for="PaymentDetail.CleanMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.DrinkWaterMoney" class="control-label"></label>
+                <input asp-for="PaymentDetail.DrinkWaterMoney" class="form-control" />
+                <span asp-validation-for="PaymentDetail.DrinkWaterMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentDetail.Discount" class="control-label"></label>
+                <input asp-for="PaymentDetail.Discount" class="form-control" />
+                <span asp-validation-for="PaymentDetail.Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

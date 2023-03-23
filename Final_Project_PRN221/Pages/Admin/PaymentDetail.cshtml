@@ -3,3 +3,26 @@
 @{
     Layout = null;
 }
+<h2>Chi tiết tiền phòng @Model.RoomName</h2>
+<form method="post">
+    Tiền phòng <input asp-for="PaymentDetail.RoomCharge" type="t ext" disabled/>
+<br />
+    Tiền nước <input asp-for="PaymentDetail.WaterMoney" type="text" disabled />
+<br />
+    Tiền mạng <input asp-for="PaymentDetail.NetworkMoney" type="text" disabled />
+<br />
+    Tiền vệ sinh <input asp-for="PaymentDetail.CleanMoney" type="text" disabled />
+<br />
+    Tiền nước uống <input asp-for="PaymentDetail.DrinkWaterMoney" type="text" disabled />@*Hàm get trong electricBill sẽ tạo mới 1 electricBill*@
+<br />
+    Tiền được giảm <input asp-for="PaymentDetail.Discount" type="text"/>
+<br />
+@*Tổng tiền điện @if(Model.ElectricID == 0){
+    <a href="./ElectricBill">Chốt số điện</a> 
+}else{
+        <input asp-for="@Model.electricity.Total = " type="text" disabled />
+}*@
+Tổng tiền phải đóng: @*Tính tổng sau khi electric bill được cập nhật *@
+
+<input type="submit" class="btn btn-primary" value="Chốt"/>
+</form>

@@ -1,0 +1,72 @@
+﻿@page
+@model Final_Project_PRN221.Pages.PaymentDetail_Check.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].RoomCharge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].WaterMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].NetworkMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].CleanMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].DrinkWaterMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDetail[0].Payment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PaymentDetail) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomCharge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaterMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetworkMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CleanMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrinkWaterMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment.PaymentId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PaymentDetailId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PaymentDetailId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PaymentDetailId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

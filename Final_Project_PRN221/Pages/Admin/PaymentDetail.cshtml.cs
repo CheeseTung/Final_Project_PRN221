@@ -1,6 +1,7 @@
 using Final_Project_PRN221.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Project_PRN221.Pages.Admin
 {
@@ -11,17 +12,29 @@ namespace Final_Project_PRN221.Pages.Admin
         {
             _context = context;
         }
-        public IActionResult OnGet(int? paymentID)
+
+        [BindProperty]
+        public int PaymentId { get; set; }
+        public string RoomName { get; set; }    
+        public PaymentDetail PaymentDetail { get; set; } = default!;
+        public IActionResult OnGet(int? paymentId, string? roomName)
         {
-            if(paymentID == null)
+            RoomName = roomName;
+            if (paymentId == null || _context.PaymentDetails == null)
             {
-                return RedirectToPage("/Error");
+                return NotFound();
+            }
+
+            var paymentdetail = _context.PaymentDetails.Where(pd => pd.PaymentId == paymentId).SingleOrDefault();
+            if (paymentdetail == null)
+            {
+                return NotFound();
             }
             else
             {
-
-                return Page();
+                PaymentDetail = paymentdetail;
             }
+            return Page();
         }
     }
 }

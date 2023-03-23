@@ -42,6 +42,8 @@ namespace Final_Project_PRN221.Models
 
                 entity.Property(e => e.FromDate).HasColumnType("date");
 
+                entity.Property(e => e.PaymentDetailId).HasColumnName("Payment_Detail_ID");
+
                 entity.Property(e => e.PricePerNumber).HasColumnType("money");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
@@ -51,6 +53,11 @@ namespace Final_Project_PRN221.Models
                 entity.Property(e => e.Total)
                     .HasMaxLength(10)
                     .IsFixedLength();
+
+                entity.HasOne(d => d.PaymentDetail)
+                    .WithMany(p => p.Electricities)
+                    .HasForeignKey(d => d.PaymentDetailId)
+                    .HasConstraintName("FK_Electricity_Payment_Details");
 
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Electricities)
@@ -105,8 +112,6 @@ namespace Final_Project_PRN221.Models
                     .HasColumnType("money")
                     .HasColumnName("drinkWaterMoney");
 
-                entity.Property(e => e.ElectricityId).HasColumnName("electricityId");
-
                 entity.Property(e => e.NetworkMoney)
                     .HasColumnType("money")
                     .HasColumnName("networkMoney");
@@ -120,12 +125,6 @@ namespace Final_Project_PRN221.Models
                 entity.Property(e => e.WaterMoney)
                     .HasColumnType("money")
                     .HasColumnName("waterMoney");
-
-                entity.HasOne(d => d.Electricity)
-                    .WithMany(p => p.PaymentDetails)
-                    .HasForeignKey(d => d.ElectricityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_Details_Electricity");
 
                 entity.HasOne(d => d.Payment)
                     .WithMany(p => p.PaymentDetails)

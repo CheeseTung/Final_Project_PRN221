@@ -21,6 +21,7 @@ namespace Final_Project_PRN221.Pages.Admin
             var query = _context.Users.Include(u => u.Room);
             var users = (from u in query
                          where u.Role == 2
+                         orderby u.Room.RoomName
                          select u).ToList();
             if (deleteUsername != null)
             {

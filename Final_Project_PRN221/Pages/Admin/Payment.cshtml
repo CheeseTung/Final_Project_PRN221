@@ -7,14 +7,14 @@
 }
 
 <h2>Hóa đơn tiền phòng</h2>
-
+@*NÚT CHUYỂN ĐỢT TIỀN PHÒNG*@
 <p>Từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</p>
 <table class="table" style="border: 1px solid">
     <thead>
         <tr>
             <th>Phòng</th>
             <th>Tổng tiền phải đóng</th>
-            <th>Đã đóng</th>
+            <th>Xác nhận</th>
             <th></th>
             <th></th>
         </tr>
@@ -24,7 +24,7 @@
         {
             <tr>
                 <td>@p.Room.RoomName</td>
-                @if(p.Amount == null)
+                @if (p.Amount == null)
                 {
                     <td>Tổng số tiền phải xác nhận</td>
                 }
@@ -32,7 +32,7 @@
                 {
                     <td>@p.Amount</td>
                 }
-                
+
                 @if (p.IsPaid == true)
                 {
                     <td>Đã đóng</td>
@@ -41,7 +41,14 @@
                 {
                     <td>Chưa đóng</td>
                 }
-                <td><a href="./PaymentDetail?paymentID=@p.PaymentId">Xem chi tiết hóa đơn</a></td> @*Nếu đã check thì sẽ disable thẻ a này*@
+                <td>
+                    <form method="post">
+                        <input type="hidden" asp-for="PaymentDetail.PaymentId" value="@p.PaymentId" />
+                        <button type="submit" class="btn btn-primary">
+                            Xem chi tiết hóa đơn
+                        </button>
+                    </form>
+                </td>
                 <td></td> @*Check đã confirm thông tin chưa, xử lý bên payment detail*@
             </tr>
         }
