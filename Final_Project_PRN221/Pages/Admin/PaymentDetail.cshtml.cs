@@ -15,17 +15,38 @@ namespace Final_Project_PRN221.Pages.Admin
 
         [BindProperty]
         public int PaymentId { get; set; }
-        public string RoomName { get; set; }    
+        [BindProperty]
+        public int PaymentDetailId { get; set; }
+        public string RoomName { get; set; }
+        public int RoomID { get; set; }
         public PaymentDetail PaymentDetail { get; set; } = default!;
-        public IActionResult OnGet(int? paymentId, string? roomName)
+
+        public decimal? TotalElectricAmount { get; set; }
+        public IActionResult OnGet(int? paymentId, int? roomID)
         {
-            RoomName = roomName;
-            if (paymentId == null || _context.PaymentDetails == null)
+            if (paymentId == null || _context.PaymentDetails == null || roomID == null)
             {
                 return NotFound();
             }
-
+            var room = _context.Rooms.SingleOrDefault(r => r.RoomId == roomID);
+            RoomName = room.RoomName;
+            RoomID = room.RoomId;
             var paymentdetail = _context.PaymentDetails.Where(pd => pd.PaymentId == paymentId).SingleOrDefault();
+            PaymentId = paymentdetail.PaymentId;
+            PaymentDetailId = paymentdetail.PaymentDetailId;
+            //Check electric total
+            var query = _context.Electricities.Include(e => e.PaymentDetail);
+            var electricResult = (from e in query
+                                  where e.PaymentDetailId == paymentdetail.PaymentDetailId
+                                  select e).SingleOrDefault();
+            if (electricResult == null)
+            {
+                TotalElectricAmount = null;
+            }
+            else
+            {
+                TotalElectricAmount = electricResult.Total;
+            }
             if (paymentdetail == null)
             {
                 return NotFound();
@@ -35,6 +56,78 @@ namespace Final_Project_PRN221.Pages.Admin
                 PaymentDetail = paymentdetail;
             }
             return Page();
+        }
+
+        [BindProperty]
+        public Electricity Electricity { get; set; } = default!;
+        public IActionResult OnPost()
+        {
+            if (TotalElectricAmount == null)
+            {
+                var query = _context.Payments.Include(p => p.PaymentDetails);
+                var getDateFromPayment = (from fd in query
+                                          where fd.PaymentId == PaymentId
+                                          select fd).SingleOrDefault();
+                //Check null
+                var electricCheck = _context.Electricities.SingleOrDefault(e => e.PaymentDetailId == PaymentDetailId);
+                if(electricCheck == null)
+                {
+                    Electricity.FromDate = getDateFromPayment.FromDate;
+                    Electricity.ToDate = getDateFromPayment.ToDate;
+                    Electricity.PricePerNumber = 3000;
+
+                    _context.Electricities.Add(Electricity);
+                    _context.SaveChanges();
+                    return RedirectToPage("/Admin/ElectricBill");
+                }
+                else
+                {
+                    return RedirectToPage("/Admin/ElectricBill");
+                }
+            }
+            else
+            {
+                //if (!ModelState.IsValid)
+                //{
+                //    return Page();
+                //}
+
+                _context.Attach(PaymentDetail).State = EntityState.Modified;
+
+                try
+                {
+                   _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PaymentDetailExists(PaymentDetail.PaymentDetailId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                var paymentUpdateAmount = _context.Payments.SingleOrDefault(p => p.PaymentId == PaymentDetail.PaymentId);
+                if (paymentUpdateAmount != null)
+                {
+                    paymentUpdateAmount.Amount = PaymentDetail.RoomCharge + PaymentDetail.WaterMoney + PaymentDetail.NetworkMoney + PaymentDetail.DrinkWaterMoney + PaymentDetail.CleanMoney + TotalElectricAmount - PaymentDetail.Discount;
+                    _context.Attach(paymentUpdateAmount).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    return RedirectToPage("/Admin/Payment");
+                }
+                else
+                {
+                    return NotFound() ;
+                }
+                
+            }
+        }
+        private bool PaymentDetailExists(int id)
+        {
+            return (_context.PaymentDetails?.Any(e => e.PaymentDetailId == id)).GetValueOrDefault();
         }
     }
 }

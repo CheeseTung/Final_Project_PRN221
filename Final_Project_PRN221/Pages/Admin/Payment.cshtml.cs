@@ -16,6 +16,9 @@ namespace Final_Project_PRN221.Pages.Admin
         public DateTime toDate = new DateTime();
         [BindProperty]
         public PaymentDetail PaymentDetail { get; set; }
+
+        [BindProperty]
+        public int RoomID { get; set; }
         public void OnGet()
         {
             var query = _context.Payments.Include(p => p.Room);
@@ -31,7 +34,7 @@ namespace Final_Project_PRN221.Pages.Admin
         public IActionResult OnPost()
         {
             var paymentDetailList = _context.PaymentDetails.SingleOrDefault(pd => pd.PaymentId == PaymentDetail.PaymentId);
-            if (paymentDetailList != null)
+            if (paymentDetailList == null)
             {
                 PaymentDetail.RoomCharge = 8000000m;
                 PaymentDetail.WaterMoney = 400000m;
@@ -41,11 +44,11 @@ namespace Final_Project_PRN221.Pages.Admin
 
                 _context.PaymentDetails.Add(PaymentDetail);
                 _context.SaveChanges();
-                return RedirectToPage($"/Admin/PaymentDetail?paymentId={PaymentDetail.PaymentId}&&roomName={PaymentDetail.Payment.Room.RoomName}");
+                return RedirectToPage("/Admin/PaymentDetail", new { paymentId = PaymentDetail.PaymentId , roomID = RoomID });
             }
             else
             {
-                return RedirectToPage($"/Admin/PaymentDetail?paymentId={PaymentDetail.PaymentId}&&roomName={PaymentDetail.Payment.Room.RoomName}"); //Check room xem lấy được không
+                return RedirectToPage("/Admin/PaymentDetail", new { paymentId = PaymentDetail.PaymentId , roomID = RoomID }); //Check room xem lấy được không
             }
         }
     }

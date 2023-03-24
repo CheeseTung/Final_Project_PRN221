@@ -43,6 +43,7 @@
                 }
                 <td>
                     <form method="post">
+                        <input type="hidden" asp-for="RoomID" value="@p.Room.RoomId"/>
                         <input type="hidden" asp-for="PaymentDetail.PaymentId" value="@p.PaymentId" />
                         <button type="submit" class="btn btn-primary">
                             Xem chi tiết hóa đơn

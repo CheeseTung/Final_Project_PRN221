@@ -1,0 +1,72 @@
+﻿@page
+@model Final_Project_PRN221.Pages.Electric_Check.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].FromDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].ToDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].PricePerNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].PaymentDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Electricity[0].Room)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Electricity) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDetail.PaymentDetailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Room.RoomId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ElectricityId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ElectricityId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ElectricityId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

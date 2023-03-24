@@ -11,7 +11,7 @@ namespace Final_Project_PRN221.Models
         public DateTime? ToDate { get; set; }
         public decimal? PricePerNumber { get; set; }
         public int? Quantity { get; set; }
-        public string? Total { get; set; }
+        public decimal? Total { get; set; }
         public int? PaymentDetailId { get; set; }
 
         public virtual PaymentDetail? PaymentDetail { get; set; }

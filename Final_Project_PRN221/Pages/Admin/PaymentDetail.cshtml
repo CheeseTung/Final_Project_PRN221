@@ -5,24 +5,33 @@
 }
 <h2>Chi tiết tiền phòng @Model.RoomName</h2>
 <form method="post">
-    Tiền phòng <input asp-for="PaymentDetail.RoomCharge" type="t ext" disabled/>
-<br />
+    Tiền phòng <input asp-for="PaymentDetail.RoomCharge" type="text" disabled />
+    <br />
     Tiền nước <input asp-for="PaymentDetail.WaterMoney" type="text" disabled />
-<br />
+    <br />
     Tiền mạng <input asp-for="PaymentDetail.NetworkMoney" type="text" disabled />
-<br />
+    <br />
     Tiền vệ sinh <input asp-for="PaymentDetail.CleanMoney" type="text" disabled />
-<br />
-    Tiền nước uống <input asp-for="PaymentDetail.DrinkWaterMoney" type="text" disabled />@*Hàm get trong electricBill sẽ tạo mới 1 electricBill*@
-<br />
-    Tiền được giảm <input asp-for="PaymentDetail.Discount" type="text"/>
-<br />
-@*Tổng tiền điện @if(Model.ElectricID == 0){
-    <a href="./ElectricBill">Chốt số điện</a> 
-}else{
-        <input asp-for="@Model.electricity.Total = " type="text" disabled />
-}*@
-Tổng tiền phải đóng: @*Tính tổng sau khi electric bill được cập nhật *@
+    <br />
+    Tiền nước uống <input asp-for="PaymentDetail.DrinkWaterMoney" type="text" disabled />
+    <br />
+    Tiền được giảm <input asp-for="PaymentDetail.Discount" type="text" />
+    <br />
+    Tiền điện
+    @if (Model.TotalElectricAmount == null)
+    {
+        <input type="hidden" asp-for="Electricity.PaymentDetailId" value="@Model.PaymentDetailId" />
+        <input type="hidden" asp-for="Electricity.RoomId" value="@Model.RoomID" />
+        <input type="submit" class="btn btn-primary" value="Cập nhật tiền điện" />
+        <br />
+        <button class="btn btn-primary" disabled>Chốt</button>
+    }
+    else
+    {
+        <input asp-for="@Model.TotalElectricAmount" />
 
-<input type="submit" class="btn btn-primary" value="Chốt"/>
+        <br />
+        <input type="submit" class="btn btn-primary" value="Chốt" />
+    }
 </form>
+@*Hàm get trong electricBill sẽ tạo mới 1 electricBill*@@*Tính tổng sau khi electric bill được cập nhật *@
