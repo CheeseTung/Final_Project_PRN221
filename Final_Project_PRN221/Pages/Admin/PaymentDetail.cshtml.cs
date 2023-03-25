@@ -60,6 +60,7 @@ namespace Final_Project_PRN221.Pages.Admin
 
         [BindProperty]
         public Electricity Electricity { get; set; } = default!;
+        private bool checkExist;
         public IActionResult OnPost()
         {
             if (TotalElectricAmount == null)
@@ -69,20 +70,31 @@ namespace Final_Project_PRN221.Pages.Admin
                                           where fd.PaymentId == PaymentId
                                           select fd).SingleOrDefault();
                 //Check null
-                var electricCheck = _context.Electricities.SingleOrDefault(e => e.PaymentDetailId == PaymentDetailId);
-                if(electricCheck == null)
+                var checkExitsList = _context.Electricities.ToList();
+                foreach (var item in checkExitsList)
                 {
-                    Electricity.FromDate = getDateFromPayment.FromDate;
-                    Electricity.ToDate = getDateFromPayment.ToDate;
-                    Electricity.PricePerNumber = 3000;
-
-                    _context.Electricities.Add(Electricity);
-                    _context.SaveChanges();
-                    return RedirectToPage("/Admin/ElectricBill");
+                    if(item.PaymentDetailId == PaymentDetailId)
+                    {
+                        checkExist = true;
+                    }
+                    else
+                    {
+                        checkExist = false;
+                    }
+                }
+                if (!checkExist)
+                {
+                    return RedirectToPage("/Admin/ElectricBill", new { paymentDetailId = Electricity.PaymentDetailId });
                 }
                 else
                 {
-                    return RedirectToPage("/Admin/ElectricBill");
+                    Electricity.FromDate = getDateFromPayment.FromDate;
+                    Electricity.ToDate = getDateFromPayment.ToDate;
+                    Electricity.PricePerNumber = 3000m;
+
+                    _context.Electricities.Add(Electricity);
+                    _context.SaveChanges();
+                    return RedirectToPage("/Admin/ElectricBill", new { paymentDetailId = Electricity.PaymentDetailId });
                 }
             }
             else
@@ -96,7 +108,7 @@ namespace Final_Project_PRN221.Pages.Admin
 
                 try
                 {
-                   _context.SaveChanges();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,9 +132,9 @@ namespace Final_Project_PRN221.Pages.Admin
                 }
                 else
                 {
-                    return NotFound() ;
+                    return NotFound();
                 }
-                
+
             }
         }
         private bool PaymentDetailExists(int id)

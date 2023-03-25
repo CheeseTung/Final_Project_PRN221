@@ -1,4 +1,38 @@
 ﻿@page
 @model Final_Project_PRN221.Pages.Admin.ElectricBillModel
 @{
+    //Layout = null;
 }
+<h2>Hóa đơn điện phòng @Model.RoomName từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</h2>
+<form method="post">
+    <input type="hidden" name="PaymentId" value="@Model._PaymentId" />
+    <input type="hidden" asp-for="Electricity.ElectricityId"/>
+    <input type="hidden" asp-for="Electricity.RoomId"/>
+    <input type="hidden" asp-for="Electricity.FromDate"/>
+    <input type="hidden" asp-for="Electricity.ToDate"/>
+    <input type="hidden" asp-for="Electricity.PaymentDetailId"/>
+    Tiền điện/Số
+    <input asp-for="Electricity.PricePerNumber" id="price-per-number" disabled />
+    <br />
+    Số điện
+    <input asp-for="Electricity.Quantity" id="quantity" onchange="calculateTotal()" />
+    <br />
+    Tiền điện phải đóng
+    <input asp-for="Electricity.Total" id="total" disabled />
+    <br />
+    <input type="submit" class="btn btn-primary" value="Xác nhận" id="confirm-btn" disabled />
+</form>
+
+<script>
+    function calculateTotal() {
+        var pricePerNumber = parseFloat($("#price-per-number").val());
+        var quantity = parseInt($("#quantity").val());
+        var total = (pricePerNumber * quantity).toFixed(2);
+        $("#total").val(total);
+        if (total > 0) {
+            $('#confirm-btn').prop('disabled', false);
+        } else {
+            $('#confirm-btn').prop('disabled', true);
+        }
+    }
+</script>
