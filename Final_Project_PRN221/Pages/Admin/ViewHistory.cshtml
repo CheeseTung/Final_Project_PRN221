@@ -3,9 +3,22 @@
 @model Final_Project_PRN221.Pages.Admin.ViewHistoryModel
 @{
     var Payment = ViewData["Payment"] as List<Payment>;
+    var Room = ViewData["Rooms"] as List<Room>;
 }
 <h2>Lịch sử đóng tiền tọ Tỵ Ha</h2>
-
+<form asp-page="/Admin/ViewHistory" method="get">
+    <label>Tìm theo tên phòng</label> 
+    <select name="rooms">
+        @foreach (var r in Room)
+        {
+            <option value="@r.RoomId">@r.RoomName</option>
+        }
+    </select>
+    <input type="date" name="fromDate"/>
+    <input type="date" name="toDate"/>
+    <input type="submit" value="Tìm kiếm"/><br />
+    <a asp-page="/Admin/ViewHistory">Trở lại danh sách đầy đủ</a>
+</form>
 <table class="table">
     <thead>
         <tr>
