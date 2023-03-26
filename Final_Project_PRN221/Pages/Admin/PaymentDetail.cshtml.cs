@@ -19,6 +19,7 @@ namespace Final_Project_PRN221.Pages.Admin
         public int PaymentDetailId { get; set; }
         public string RoomName { get; set; }
         public int RoomID { get; set; }
+        [BindProperty]
         public PaymentDetail PaymentDetail { get; set; } = default!;
 
         public decimal? TotalElectricAmount { get; set; }
@@ -60,10 +61,13 @@ namespace Final_Project_PRN221.Pages.Admin
 
         [BindProperty]
         public Electricity Electricity { get; set; } = default!;
+        private decimal DiscountValue = 0;
         private bool checkExist;
         public IActionResult OnPost()
         {
-            if (TotalElectricAmount == null)
+            TotalElectricAmount = decimal.TryParse(Request.Form["TotalElectricAmount"].ToString(), out decimal result) ? result : 0;
+
+            if (TotalElectricAmount == null || TotalElectricAmount == 0)
             {
                 var query = _context.Payments.Include(p => p.PaymentDetails);
                 var getDateFromPayment = (from fd in query
@@ -98,7 +102,7 @@ namespace Final_Project_PRN221.Pages.Admin
                 }
             }
             else
-            {
+            {               
                 //if (!ModelState.IsValid)
                 //{
                 //    return Page();
@@ -125,7 +129,15 @@ namespace Final_Project_PRN221.Pages.Admin
                 var paymentUpdateAmount = _context.Payments.SingleOrDefault(p => p.PaymentId == PaymentDetail.PaymentId);
                 if (paymentUpdateAmount != null)
                 {
-                    paymentUpdateAmount.Amount = PaymentDetail.RoomCharge + PaymentDetail.WaterMoney + PaymentDetail.NetworkMoney + PaymentDetail.DrinkWaterMoney + PaymentDetail.CleanMoney + TotalElectricAmount - PaymentDetail.Discount;
+                    if(PaymentDetail.Discount == null)
+                    {
+                        DiscountValue = 0;
+                    }
+                    else
+                    {
+                        DiscountValue = (decimal)PaymentDetail.Discount;
+                    }
+                    paymentUpdateAmount.Amount = PaymentDetail.RoomCharge + PaymentDetail.WaterMoney + PaymentDetail.NetworkMoney + PaymentDetail.DrinkWaterMoney + PaymentDetail.CleanMoney + TotalElectricAmount - DiscountValue;
                     _context.Attach(paymentUpdateAmount).State = EntityState.Modified;
                     _context.SaveChanges();
                     return RedirectToPage("/Admin/Payment");

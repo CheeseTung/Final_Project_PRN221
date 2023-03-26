@@ -5,6 +5,13 @@
 }
 <h2>Chi tiết tiền phòng @Model.RoomName</h2>
 <form method="post">
+    <input type="hidden" asp-for="PaymentDetail.PaymentDetailId" />
+    <input type="hidden" asp-for="PaymentDetail.PaymentId" />
+    <input type="hidden" asp-for="PaymentDetail.RoomCharge" />
+    <input type="hidden" asp-for="PaymentDetail.WaterMoney" />
+    <input type="hidden" asp-for="PaymentDetail.NetworkMoney" />
+    <input type="hidden" asp-for="PaymentDetail.CleanMoney" />
+    <input type="hidden" asp-for="PaymentDetail.DrinkWaterMoney" />
     Tiền phòng <input asp-for="PaymentDetail.RoomCharge" type="text" disabled />
     <br />
     Tiền nước <input asp-for="PaymentDetail.WaterMoney" type="text" disabled />
@@ -28,7 +35,8 @@
     }
     else
     {
-        <input asp-for="@Model.TotalElectricAmount" />
+        <input value="@Model.TotalElectricAmount" type="hidden" name="TotalElectricAmount" />
+        <input asp-for="@Model.TotalElectricAmount" disabled/>
 
         <br />
         <input type="submit" class="btn btn-primary" value="Chốt" />

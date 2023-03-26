@@ -8,6 +8,13 @@
 
 <h2>Hóa đơn tiền phòng</h2>
 @*NÚT CHUYỂN ĐỢT TIỀN PHÒNG*@
+<form asp-page-handler="SubmitData" asp-page="/Admin/Payment">
+    <input type="hidden" name="checkAmount" id="checkAmount" value="@Model.checkAmount" />
+    <input type="hidden" name="fromDate" value="@Model.fromDate"/>
+    <input type="hidden" name="toDate" value="@Model.toDate"/>
+    <input type="submit" class="btn btn-primary" value="Sang đợt tiếp theo" id="confirm-btn" />
+</form>
+
 <p>Từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</p>
 <table class="table" style="border: 1px solid">
     <thead>
@@ -43,15 +50,23 @@
                 }
                 <td>
                     <form method="post">
-                        <input type="hidden" asp-for="RoomID" value="@p.Room.RoomId"/>
+                        <input type="hidden" asp-for="RoomID" value="@p.Room.RoomId" />
                         <input type="hidden" asp-for="PaymentDetail.PaymentId" value="@p.PaymentId" />
                         <button type="submit" class="btn btn-primary">
                             Xem chi tiết hóa đơn
                         </button>
                     </form>
                 </td>
-                <td></td> @*Check đã confirm thông tin chưa, xử lý bên payment detail*@
+                <td></td>
             </tr>
         }
     </tbody>
 </table>
+<script>
+    const checkAmountInput = document.getElementById("checkAmount");
+    if (checkAmountInput.value === "true") {
+         $('#confirm-btn').prop('disabled', false);
+    } else {
+        $('#confirm-btn').prop('disabled', true);
+    }
+</script>

@@ -1,0 +1,38 @@
+﻿@page
+@using Final_Project_PRN221.Models;
+@model Final_Project_PRN221.Pages.Admin.ViewHistoryModel
+@{
+    var Payment = ViewData["Payment"] as List<Payment>;
+}
+<h2>Lịch sử đóng tiền tọ Tỵ Ha</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Phòng</th>
+            <th>Từ ngày</th>
+            <th>Đến ngày</th>
+            <th>Tổng tiền</th>
+            <th>Xác nhận</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Payment)
+        {
+            <tr>
+                <td>@p.Room.RoomName</td>
+                <td>@p.FromDate.Value.ToString("dd/MM/yyyy")</td>
+                <td>@p.ToDate.Value.ToString("dd/MM/yyyy")</td>
+                <td>@p.Amount.Value.ToString("#,##0.00")</td>
+                @if (p.IsPaid == true)
+                {
+                    <td>Đã đóng</td>
+                }
+                else
+                {
+                    <td>Chưa đóng</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
