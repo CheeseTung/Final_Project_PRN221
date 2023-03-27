@@ -1,4 +1,4 @@
-using Final_Project_PRN221.Models;
+﻿using Final_Project_PRN221.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +34,7 @@ namespace Final_Project_PRN221.Pages
             var user = _context.Users.SingleOrDefault(u => u.Username == Username && u.Password == Password);
             if (user == null)
             {
+                mess = "Tài khoản không tồn tại hoặc tài khoản, mật khẩu đã sai!";
                 return Page();
             }
             else
