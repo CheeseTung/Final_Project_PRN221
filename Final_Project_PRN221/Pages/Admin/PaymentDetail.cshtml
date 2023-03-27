@@ -1,9 +1,8 @@
 ﻿@page
 @model Final_Project_PRN221.Pages.Admin.PaymentDetailModel
 @{
-    Layout = null;
 }
-<h2>Chi tiết tiền phòng @Model.RoomName</h2>
+@*<h2>Chi tiết tiền phòng @Model.RoomName</h2>
 <form method="post">
     <input type="hidden" asp-for="PaymentDetail.PaymentDetailId" />
     <input type="hidden" asp-for="PaymentDetail.PaymentId" />
@@ -41,5 +40,66 @@
         <br />
         <input type="submit" class="btn btn-primary" value="Chốt" />
     }
-</form>
+</form>*@
 @*Hàm get trong electricBill sẽ tạo mới 1 electricBill*@@*Tính tổng sau khi electric bill được cập nhật *@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Bill room details room @Model.RoomName</h4>
+            <p class="card-description"> For electricity bill you need to update the electricity number </p>
+            <form class="forms-sample" method="post">
+                <input type="hidden" name= "_paymentDetailId" value="@Model.PaymentDetailId"/>
+                <input type="hidden" asp-for="PaymentDetail.PaymentDetailId" />
+                <input type="hidden" asp-for="PaymentDetail.PaymentId" />
+                <input type="hidden" asp-for="PaymentDetail.RoomCharge" />
+                <input type="hidden" asp-for="PaymentDetail.WaterMoney" />
+                <input type="hidden" asp-for="PaymentDetail.NetworkMoney" />
+                <input type="hidden" asp-for="PaymentDetail.CleanMoney" />
+                <input type="hidden" asp-for="PaymentDetail.DrinkWaterMoney" />
+                <div class="form-group">
+                    <label for="exampleInputName1">Room Charge</label>
+                    <input asp-for="PaymentDetail.RoomCharge" class="form-control" style="color:red" id="exampleInputName1" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Water Money</label>
+                    <input asp-for="PaymentDetail.WaterMoney" class="form-control" style="color:red" id="exampleInputEmail3" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword4">Network Money</label>
+                    <input asp-for="PaymentDetail.NetworkMoney" class="form-control" style="color:red" id="exampleInputPassword4" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword4">Clean Money</label>
+                    <input asp-for="PaymentDetail.CleanMoney" class="form-control" style="color:red" id="exampleInputPassword4" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputCity1">Drink Water Money</label>
+                    <input asp-for="PaymentDetail.DrinkWaterMoney" class="form-control" style="color:red" id="exampleInputCity1" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Discount Money</label>
+                    <input type="text" asp-for="PaymentDetail.Discount" class="form-control" style="color:red" id="exampleInputName1" placeholder="Discount">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Electric Money</label>
+                    @if (Model.TotalElectricAmount == null)
+                    {
+                        <input type="hidden" asp-for="Electricity.PaymentDetailId" value="@Model.PaymentDetailId" />
+                        <input type="hidden" asp-for="Electricity.RoomId" value="@Model.RoomID" />
+                        <input type="submit" class="btn btn-primary" value="Update electricity bill" />
+                        <br />
+                        <button class="btn btn-primary" disabled>Submit</button>
+                    }
+                    else
+                    {
+                        <input value="@Model.TotalElectricAmount" type="hidden"  name="TotalElectricAmount" />
+                        <input asp-for="@Model.TotalElectricAmount" style="color:red" disabled />
+
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -14,17 +14,26 @@ namespace Final_Project_PRN221.Pages.Admin
         [BindProperty]
         public Notification Notification { get; set; }
         public string Message { get; set; }
-        public void OnGet()
+        public void OnGet(int? notificationID)
         {
             var noti = _context.Notifications.ToList();
             if(noti.Count() <= 0 )
             {
-                Message = "Chưa có thông báo nào";
+                Message = "There are no announcements yet";
             }
             else
             {
+                if(notificationID != null)
+                {
+                    var notiDelete = (from n in noti
+                                      where n.NotificationId== notificationID
+                                      select n).SingleOrDefault();
+                    _context.Notifications.Remove(notiDelete);
+                    _context.SaveChanges();
+                    noti.Remove(notiDelete);
+                }
                 ViewData["Notification"] = noti;
-                Message = "Danh sách thông báo";
+                Message = "Notification List";
             }
         }
 

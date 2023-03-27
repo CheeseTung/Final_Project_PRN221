@@ -2,16 +2,15 @@
 @using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.PaymentModel
 @{
-    Layout = null;
     var Payments = ViewData["payments"] as List<Payment>;
 }
 
-<h2>Hóa đơn tiền phòng</h2>
+<h2>Room bill</h2>
 @*NÚT CHUYỂN ĐỢT TIỀN PHÒNG*@
-<form asp-page-handler="SubmitData" asp-page="/Admin/Payment">
+@*<form asp-page-handler="SubmitData" asp-page="/Admin/Payment">
     <input type="hidden" name="checkAmount" id="checkAmount" value="@Model.checkAmount" />
-    <input type="hidden" name="fromDate" value="@Model.fromDate"/>
-    <input type="hidden" name="toDate" value="@Model.toDate"/>
+    <input type="hidden" name="fromDate" value="@Model.fromDate" />
+    <input type="hidden" name="toDate" value="@Model.toDate" />
     <input type="submit" class="btn btn-primary" value="Sang đợt tiếp theo" id="confirm-btn" />
 </form>
 
@@ -61,11 +60,74 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form asp-page-handler="SubmitData" asp-page="/Admin/Payment">
+                <input type="hidden" name="checkAmount" id="checkAmount" value="@Model.checkAmount" />
+                <input type="hidden" name="fromDate" value="@Model.fromDate" />
+                <input type="hidden" name="toDate" value="@Model.toDate" />
+                <input type="submit" class="btn btn-primary" value="Sang đợt tiếp theo" id="confirm-btn" disabled/>
+            </form>
+            <h4 class="card-title">Bill from @Model.fromDate.ToString("dd/MM/yyyy") to @Model.toDate.ToString("dd/MM/yyyy")</h4>
+            <p class="card-description">
+                You must select the details button to adjust the necessary requirements
+            </p>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th> Room Name </th>
+                            <th> Amount </th>
+                            <th> Confirm </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Payments)
+                        {
+                            <tr>
+                                <td>@p.Room.RoomName</td>
+                                @if (p.Amount == null)
+                                {
+                                    <td>Total amount need to confirm</td>
+                                }
+                                else
+                                {
+                                    <td>@p.Amount</td>
+                                }
+
+                                @if (p.IsPaid == true)
+                                {
+                                    <td>Paid</td>
+                                }
+                                else
+                                {
+                                    <td>Not paid yet</td>
+                                }
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" asp-for="RoomID" value="@p.Room.RoomId" />
+                                        <input type="hidden" asp-for="PaymentDetail.PaymentId" value="@p.PaymentId" />
+                                        <button type="submit" class="btn btn-primary">
+                                            Details
+                                        </button>
+                                    </form>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     const checkAmountInput = document.getElementById("checkAmount");
     if (checkAmountInput.value === "true") {
-         $('#confirm-btn').prop('disabled', false);
+        $('#confirm-btn').prop('disabled', false);
     } else {
         $('#confirm-btn').prop('disabled', true);
     }

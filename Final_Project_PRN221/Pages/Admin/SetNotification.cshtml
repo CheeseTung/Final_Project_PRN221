@@ -2,10 +2,9 @@
 @using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.SetNotificationModel
 @{
-    Layout = null;
     var noti = ViewData["Notification"] as List<Notification>;
 }
-<h2>Set notification</h2>
+@*<h2>Set notification</h2>
 <form method="post">
     <label>Tạo thông báo</label><br />
     <textarea asp-for="Notification.Content"></textarea>
@@ -23,4 +22,52 @@ else
         <p>@n.Content</p>
         <hr />
     }
-}
+}*@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Notification</h4>
+            <p class="card-description"> Please typing to text area below to set notification for all users </p>
+            <form class="forms-sample" method="post">
+                <div class="form-group">
+                    <label for="exampleTextarea1">Set Notification</label>
+                    <textarea class="form-control" asp-for="Notification.Content" id="exampleTextarea1" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+            @if (noti == null)
+            {
+                <p class="card-description"> @Model.Message </p>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@Model.Message</h4>
+                        <div class="table-responsive">
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th> Notification ID </th>
+                                        <th> Content </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in noti)
+                                    {
+                                        <tr>
+                                            <td>@item.NotificationId</td>
+                                            <td>@item.Content</td>
+                                            <td><a href="/Admin/SetNotification?notificationID=@item.NotificationId">Delete</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

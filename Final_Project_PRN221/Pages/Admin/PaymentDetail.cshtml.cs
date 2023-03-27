@@ -62,9 +62,10 @@ namespace Final_Project_PRN221.Pages.Admin
         [BindProperty]
         public Electricity Electricity { get; set; } = default!;
         private decimal DiscountValue = 0;
-        private bool checkExist;
+        private bool checkExist = false;
         public IActionResult OnPost()
         {
+            PaymentDetailId = Convert.ToInt32(Request.Form["_paymentDetailId"]);
             TotalElectricAmount = decimal.TryParse(Request.Form["TotalElectricAmount"].ToString(), out decimal result) ? result : 0;
 
             if (TotalElectricAmount == null || TotalElectricAmount == 0)
@@ -80,13 +81,10 @@ namespace Final_Project_PRN221.Pages.Admin
                     if(item.PaymentDetailId == PaymentDetailId)
                     {
                         checkExist = true;
-                    }
-                    else
-                    {
-                        checkExist = false;
+                        break;
                     }
                 }
-                if (!checkExist)
+                if (checkExist)
                 {
                     return RedirectToPage("/Admin/ElectricBill", new { paymentDetailId = Electricity.PaymentDetailId });
                 }

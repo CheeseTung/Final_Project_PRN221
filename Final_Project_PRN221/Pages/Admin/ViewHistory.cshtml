@@ -2,13 +2,12 @@
 @using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.ViewHistoryModel
 @{
-    Layout = null;
     var Payment = ViewData["Payment"] as List<Payment>;
     var Room = ViewData["Rooms"] as List<Room>;
 }
-<h2>Lịch sử đóng tiền tọ Tỵ Ha</h2>
+@*<h2>Lịch sử đóng tiền tọ Tỵ Ha</h2>
 <form asp-page="/Admin/ViewHistory" method="get">
-    <label>Tìm theo tên phòng</label> 
+    <label>Tìm theo tên phòng</label>
     <select name="rooms">
         @foreach (var r in Room)
         {
@@ -49,4 +48,58 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">History of payment for accommodation Ty Ha</h4>
+            <p class="card-description">
+                <form asp-page="/Admin/ViewHistory" method="get">
+                    <label>Tìm theo tên phòng</label>
+                    <select name="rooms">
+                        @foreach (var r in Room)
+                        {
+                            <option value="@r.RoomId">@r.RoomName</option>
+                        }
+                    </select>
+                    <input type="date" name="fromDate" />
+                    <input type="date" name="toDate" />
+                    <input type="submit" value="Tìm kiếm" /><br />
+                    <a asp-page="/Admin/ViewHistory">Trở lại danh sách đầy đủ</a>
+                </form>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th> Room </th>
+                            <th> From Date </th>
+                            <th> To Date </th>
+                            <th> Amount </th>
+                            <th> Confirm </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Payment)
+                        {
+                            <tr>
+                                <td>@p.Room.RoomName</td>
+                                <td>@p.FromDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@p.ToDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@p.Amount.Value.ToString("#,##0.00")</td>
+                                @if (p.IsPaid == true)
+                                {
+                                    <td>Paid</td>
+                                }
+                                else
+                                {
+                                    <td>Not Paid Yet</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

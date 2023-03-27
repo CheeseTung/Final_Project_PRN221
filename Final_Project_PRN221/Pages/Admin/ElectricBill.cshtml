@@ -3,7 +3,7 @@
 @{
     //Layout = null;
 }
-<h2>Hóa đơn điện phòng @Model.RoomName từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</h2>
+@*<h2>Hóa đơn điện phòng @Model.RoomName từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</h2>
 <form method="post">
     <input type="hidden" name="PaymentId" value="@Model._PaymentId" />
     <input type="hidden" asp-for="Electricity.ElectricityId"/>
@@ -21,7 +21,43 @@
     <input asp-for="Electricity.Total" id="total" disabled />
     <br />
     <input type="submit" class="btn btn-primary" value="Xác nhận" id="confirm-btn" disabled />
-</form>
+</form>*@
+
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Electric bill room @Model.RoomName from @Model.fromDate.ToString("dd/MM/yyyy") to @Model.toDate.ToString("dd/MM/yyyy")</h4>
+            <p class="card-description"> You just need input quantity field </p>
+            <form class="forms-sample">
+                <input type="hidden" name="PaymentId" value="@Model._PaymentId" />
+                <input type="hidden" asp-for="Electricity.ElectricityId" />
+                <input type="hidden" asp-for="Electricity.RoomId" />
+                <input type="hidden" asp-for="Electricity.FromDate" />
+                <input type="hidden" asp-for="Electricity.ToDate" />
+                <input type="hidden" asp-for="Electricity.PaymentDetailId" />
+                <div class="form-group row">
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Electric Money/ 1 Number</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Electricity.PricePerNumber" style="color:red" id="price-per-number" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Quantity</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Electricity.Quantity" id="quantity" onchange="calculateTotal()">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputMobile" class="col-sm-3 col-form-label">Total</label>
+                    <div class="col-sm-9">
+                        <input style="color:red" asp-for="Electricity.Total" id="total" disabled>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Xác nhận" id="confirm-btn" disabled />
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     function calculateTotal() {

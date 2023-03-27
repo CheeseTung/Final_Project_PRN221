@@ -3,9 +3,8 @@
 @model Final_Project_PRN221.Pages.Admin.ViewUserListModel
 @{
     var users = ViewData["users"] as List<User>;
-    Layout = null;
 }
-<h2>View user list</h2>
+@*<h2>View user list</h2>
 <table class="table">
     <thead>
         <tr>
@@ -28,4 +27,36 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">User list</h4>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th> Full Name </th>
+                            <th> Email </th>
+                            <th> Phone Number </th>
+                            <th> Room </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in users)
+                        {
+                            <tr>
+                                <td>@item.Fullname</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Room.RoomName</td>
+                                <td><a href="./ViewUserList?deleteUsername=@item.Username">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
