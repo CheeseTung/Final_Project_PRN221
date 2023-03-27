@@ -1,6 +1,26 @@
 ﻿@page
+@using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Admin.SetNotificationModel
 @{
     Layout = null;
+    var noti = ViewData["Notification"] as List<Notification>;
 }
 <h2>Set notification</h2>
+<form method="post">
+    <label>Tạo thông báo</label><br />
+    <textarea asp-for="Notification.Content"></textarea>
+    <input type="submit" value="Gửi" class="btn btn-primary" />
+</form>
+@if (noti == null)
+{
+    <p>@Model.Message</p>
+}
+else
+{
+    <p>@Model.Message</p>
+    @foreach (var n in noti)
+    {
+        <p>@n.Content</p>
+        <hr />
+    }
+}

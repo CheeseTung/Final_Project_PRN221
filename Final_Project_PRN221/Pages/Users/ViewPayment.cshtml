@@ -1,5 +1,43 @@
 ﻿@page
+@using Final_Project_PRN221.Models;
 @model Final_Project_PRN221.Pages.Users.ViewPaymentModel
 @{
     Layout = null;
+    var Payments = ViewData["payments"] as List<Payment>;
 }
+<p>Từ ngày @Model.fromDate.ToString("dd/MM/yyyy") đến ngày @Model.toDate.ToString("dd/MM/yyyy")</p>
+<table class="table" style="border: 1px solid">
+    <thead>
+        <tr>
+            <th>Phòng</th>
+            <th>Tổng tiền phải đóng</th>
+            <th>Xác nhận</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Payments)
+        {
+            <tr>
+                <td>@p.Room.RoomName</td>
+                @if (p.Amount == null)
+                {
+                    <td>Tổng số tiền phải xác nhận</td>
+                }
+                else
+                {
+                    <td>@p.Amount</td>
+                }
+
+                @if (p.IsPaid == true)
+                {
+                    <td>Đã đóng</td>
+                }
+                else
+                {
+                    <td>Chưa đóng</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

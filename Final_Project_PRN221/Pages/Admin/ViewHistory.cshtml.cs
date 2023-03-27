@@ -50,47 +50,55 @@ namespace Final_Project_PRN221.Pages.Admin
             }
 
             //Việc search đang lỗi
-            if (RoomId != 0 && FromDate == null && ToDate == null)
+            if (RoomId != 0 && FromDate == DateTime.MinValue && ToDate == DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.RoomId == RoomId
                            select p).ToList();
-            } else if (RoomId != 0 && FromDate != null && ToDate == null)
+            }
+            else if (RoomId != 0 && FromDate != DateTime.MinValue && ToDate == DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.RoomId == RoomId && p.FromDate >= FromDate
                            select p).ToList();
             }
-            else if (RoomId != 0 && FromDate != null && ToDate != null)
+            else if (RoomId != 0 && FromDate != DateTime.MinValue && ToDate != DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.RoomId == RoomId && p.FromDate >= FromDate && p.ToDate <= ToDate
                            select p).ToList();
             }
-            else if (RoomId != 0 && FromDate == null && ToDate != null)
+            else if (RoomId != 0 && FromDate == DateTime.MinValue && ToDate != DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.RoomId == RoomId && p.ToDate <= ToDate
                            select p).ToList();
             }
-            else if (RoomId == 0 && FromDate == null && ToDate != null)
+            else if (RoomId == 0 && FromDate == DateTime.MinValue && ToDate != DateTime.MinValue)
             {
                 payment = (from p in query
-                           where p.IsPaid == true && p.ToDate < maxFromDate  && p.ToDate <= ToDate
+                           where p.IsPaid == true && p.ToDate < maxFromDate && p.ToDate <= ToDate
                            select p).ToList();
             }
-            else if (RoomId == 0 && FromDate != null && ToDate == null)
+            else if (RoomId == 0 && FromDate != DateTime.MinValue && ToDate == DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.FromDate >= FromDate
                            select p).ToList();
             }
-            else if (RoomId == 0 && FromDate != null && ToDate != null)
+            else if (RoomId == 0 && FromDate == null && ToDate == null)
+            {
+                payment = (from p in query
+                           where p.IsPaid == true && p.ToDate < maxFromDate
+                           select p).ToList();
+            }
+            else if (RoomId == 0 && FromDate != DateTime.MinValue && ToDate != DateTime.MinValue)
             {
                 payment = (from p in query
                            where p.IsPaid == true && p.ToDate < maxFromDate && p.FromDate >= FromDate && p.ToDate <= ToDate
                            select p).ToList();
             }
+
             ViewData["Payment"] = payment;
         }
     }
