@@ -95,7 +95,7 @@
                                 }
                                 else
                                 {
-                                    <td>@p.Amount</td>
+                                    <td>@p.Amount.Value.ToString("#,##0.00")</td>
                                 }
 
                                 @if (p.IsPaid == true)
